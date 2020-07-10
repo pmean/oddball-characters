@@ -1,0 +1,106 @@
+---
+title: "Oddball characters"
+author: "Steve Simon"
+date: "7/10/2020"
+output:
+  powerpoint_presentation: default
+knit: (function(inputFile, encoding) {
+  rmarkdown::render(inputFile, 
+    encoding=encoding,
+    output_dir = "../results", 
+    output_format = "all") })  
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Some resources that I am drawing from
+
++ http://www.pmean.com/12/pesky.html
++ http://blog.pmean.com/weird-characters/
++ http://www.pmean.com/posts/non-breaking-space.html
+  + Please note that the image links on this page are broken
+  
+<div class="notes">
+
+I've struggled in the past with some text files because the have oddball characters. They look normal from the outside, but hiding inside them is pure trouble.
+
+Here are some blog posts that I have posted in the past about this and I will use material from these in this presentation.
+
+</div>
+
+### 7-bit ASCII
+
+![](../images/ascii-table.png)
+
+<div class="notes">
+
+ASCII is short for American Standard Code for Information Interchange.
+
+This is a table of the 7-bit ASCII characters, taken from Wikipedia.
+
+https://upload.wikimedia.org/wikipedia/commons/1/1b/ASCII-Table-wide.svg
+
+</div>
+
+### Some important 7-bit ASCII characters
+
++ Printable 7-bit ASCII
+  + Decimal 34, Hex 22, straight double quote (")
+  + Decimal 39, Hex 27, straight single quote (')
+  + Decimal 96, Hex 60,  backtick (`)
++ Invisible 7-bit ASCII
+  + Decimal 32, Hex 20, blank
+  + Decimal 09, Hex 09, tab (also \t in r)
+  + Decimal 13, carriage return (also \n in r)
+  + Decimal 12, line feed
+  
+<div class="notes">
+
+
+
+</div>
+
+### Character to hexadecimal
+
+```{r}
+charToRaw(" ")
+```
+
+<div class="notes">
+
+If you have a character and you want to see what the hexadecimal value in the ASCII table would be, use the charToRaw function.
+
+</div>
+
+### Hexadecimal to character
+
+```{r}
+"\x20"
+"\040"
+"\U20"
+```
+
+<div class="notes">
+
+If you precede a hexadecimal code with backslash-x, R will convert it to the appropriate ASCII character.
+
+Just for reference, you can get Octal and unicode values. I'll talk about these later.
+
+</div>
+
+### Why are tab characters bad?
+
+```{r}
+print("\x28\x09\x29")
+cat("\x28\x09\x29")
+print("\x28\x20\x09\x29")
+cat("\x28\x20\x09\x29")
+```
+
+<div class="notes">
+
+A tab character is shown as \t when you print it, but when you display it using the cat function it converts into one or more blanks. The problem occurs when you have a blank followed by a tab, which often is visually the same as just a tab.
+
+</div>
